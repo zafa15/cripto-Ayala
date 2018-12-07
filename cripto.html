@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body{
+			margin: 0px;
+			padding: 0px;
+			background-color: #ffffff;
+		}
+		.content{
+
+			border: 1px solid #e2e8ee;
+    		box-shadow: 1px 1px 1px 1px #e2e8ee;
+			width: 970px;
+			margin: 0 auto;
+			margin-top: 20%;
+			box-sizing: border-box;
+			padding: 20px;
+		}
+
+		.preguntas{
+			width: 450px;
+			display: inline-block;
+			box-sizing: border-box;
+			vertical-align: top;
+		}
+
+		.content2{
+			display: inline-block;
+			vertical-align: top;
+			box-sizing: border-box;
+		}
+
+
+		.content2 img{
+			height: 295px;
+		}
+
+		.content div{
+			margin-bottom: 20px;
+			font-size: 20px;
+			color: #606060;
+			font-family: arial;
+		}
+		.formulario #cripto{
+			border: 1px solid #e2e8ee;
+    		box-shadow: 1px 1px 1px 1px #e2e8ee;
+    		border-radius: 10px;
+    		box-sizing: border-box;
+    		padding: 10px;
+    		width: 80%;
+    		text-transform: lowercase;
+		}
+
+		.formulario #descripto{
+			border: 1px solid #e2e8ee;
+    		box-shadow: 1px 1px 1px 1px #e2e8ee;
+    		border-radius: 10px;
+    		box-sizing: border-box;
+    		padding: 10px;
+    		width: 80%;
+    		text-transform: lowercase;
+		}
+
+		.resultado .area-text{
+			border: 1px solid #e2e8ee;
+    		box-shadow: 1px 1px 1px 1px #e2e8ee;
+    		border-radius: 10px;
+    		width: 80%;
+    		height: 100px;
+    		text-align: left;
+    		box-sizing: border-box;
+    		padding: 10px;
+		}
+
+		.resultado .area-text2{
+			border: 1px solid #e2e8ee;
+    		box-shadow: 1px 1px 1px 1px #e2e8ee;
+    		border-radius: 10px;
+    		width: 80%;
+    		height: 100px;
+    		text-align: left;
+    		box-sizing: border-box;
+    		padding: 10px;
+		}
+
+		.btn-cript{
+			width: 100%;
+			text-align: left;
+		}
+
+		#ejecutar{
+			box-sizing: border-box;
+			background-color: #ec1b2a;
+			padding: 10px;
+			color: #ffffff;
+			font-weight: 700;
+			border: 1px solid #ec1b2a;
+			border-radius: 10px;  
+			cursor: pointer;
+		}
+
+		#corregir{
+			box-sizing: border-box;
+			background-color: #ec1b2a;
+			padding: 10px;
+			color: #ffffff;
+			font-weight: 700;
+			border: 1px solid #ec1b2a;
+			border-radius: 10px;  
+			cursor: pointer;
+		}
+
+		@media (max-width: 600px){
+			.content{
+				width: 90%;
+			}
+
+			.preguntas{
+				width: 100%;
+			}
+			.formulario #cripto{
+				width: 100%;
+			}
+
+			.resultado .area-text{
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="content">
+	<div class="preguntas">
+	<div class="formulario">
+		<form>
+			<div class="label">
+				<label>Ingrese Frase</label>	
+			</div>
+			<div class="text-input">
+			<input type="text" name="cripto" id="cripto">	
+			</div>
+			<div class="btn-cript">
+				<input type="submit" value="Encriptar" id="ejecutar" />
+			</div>
+		</form>
+	</div>
+	<div class="resultado">
+		<span>Cifrado</span><br>
+		<textarea class="area-text" disabled="disabled">
+			
+		</textarea>
+	</div>
+	<div class="formulario">
+		<form>
+			<div class="label">
+				<label>Ingrese cripto</label>	
+			</div>
+			<div class="text-input">
+			<input type="text" name="descripto" id="descripto">	
+			</div>
+			<div class="btn-cript">
+				<input type="submit" value="Desencriptar" id="corregir" />
+			</div>
+		</form>
+	</div>
+
+	<div class="resultado">
+		<span>Frase</span><br>
+		<textarea class="area-text2" disabled="disabled">
+			
+		</textarea>
+	</div>
+</div>
+
+<div class="content2">
+	<img src="img/crip2.png">
+</div>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	function encriptar(frase){
+
+	// CREACION DEL ABC, REVERSO, EMPIEZE EN L
+		
+		var abc = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z'];
+		//console.log(abc);
+		var reverse = abc.reverse();
+		//console.log(reverse);
+
+		var lista1 = [];
+		var lista2 = [];
+		for(var i = 0; i<reverse.length; i++){
+
+			lista2.push(reverse[i]);
+
+			if(reverse[i]=='m'){
+				for(var a = i+1; a< reverse.length; a++){	
+					lista1.push(reverse[a]);
+				}
+				i = reverse.length-1;
+			}
+		}
+
+		var colocado = $.merge( $.merge( [], lista1 ), lista2 );
+		var colocado2 = colocado;
+		console.log(colocado);
+		var array_idi=[];
+		var tres = 0;
+		var num1 = 3;
+
+// 357 IDI
+
+		do {
+
+			var uno = tres-3;
+					if(uno<0){
+						uno = colocado.length - Math.abs(uno);
+						//console.log(uno);
+						if(uno<0){
+							uno = colocado.length - Math.abs(uno);
+						}
+					}
+
+					array_idi.push(colocado[uno]);
+					colocado.splice(uno,1);
+					//colocado[uno]='null';
+
+				var dos = (uno)+5;
+				if(dos>colocado.length){
+					dos = (dos - colocado.length);
+					if(dos>colocado.length){
+						dos = (dos - colocado.length);
+					}
+				}
+
+					dos = dos-1;
+
+				array_idi.push(colocado[dos]);
+				colocado.splice(dos,1);
+				//colocado[dos]='null';
+
+
+				 
+
+				 tres = dos-7;
+				 //console.log(dos);
+				if(tres<0){
+					tres = colocado.length - Math.abs(tres);
+					if(tres<0){
+						tres = colocado.length - Math.abs(tres);
+						if(tres<0){
+							tres = colocado.length -  Math.abs(tres);
+							if(tres<0){
+								tres = colocado.length -  Math.abs(tres);
+								if(tres<0){
+									tres = colocado.length -  Math.abs(tres);
+									if(tres<0){
+										tres = colocado.length -  Math.abs(tres);
+									}
+								}		
+							}
+						}
+					}
+				}
+
+				array_idi.push(colocado[tres]);
+				colocado.splice(tres,1);
+				 //tres = tres +1;
+				
+				num1=num1+3;
+
+		} while(num1<=27)
+		console.log(array_idi);
+		//console.log(colocado);
+
+
+//268 SALTOS SUCESIVOS
+
+	var new_array_sucesivos=[];
+	var last_salto=0;
+	for(var salto = 3; salto<=27; salto=salto+3){
+
+		var salto1 = last_salto + 2;
+		if(salto1>array_idi.length){
+			salto1 = (salto1 - array_idi.length);
+			if(salto1>array_idi.length){
+				salto1 = (salto1 - array_idi.length);
+			}
+		}
+
+		if(last_salto>0){
+			salto1 = salto1-1;
+		}
+
+		//salto1 = salto1-1;
+		new_array_sucesivos.push(array_idi[salto1]);
+		array_idi.splice(salto1,1);
+
+		var salto2 = salto1 + 6;
+		if(salto2>array_idi.length){
+			salto2 = (salto2 - array_idi.length);
+			if(salto2>array_idi.length){
+				salto2 = (salto2 - array_idi.length);
+				if (salto2>array_idi.length) {
+					salto2 = (salto2 - array_idi.length);
+				}
+			}
+		}
+
+		salto2 = salto2-1;
+		new_array_sucesivos.push(array_idi[salto2]);
+		array_idi.splice(salto2,1);
+
+		var last_salto = salto2 + 8;
+		if(last_salto>array_idi.length){
+			last_salto = (last_salto - array_idi.length);
+			if(last_salto>array_idi.length){
+				last_salto = (last_salto - array_idi.length);
+				if(last_salto>array_idi.length){
+					last_salto = (last_salto - array_idi.length);
+					if(last_salto>array_idi.length){
+						last_salto = (last_salto - array_idi.length);
+						if(last_salto>array_idi.length){
+							last_salto = (last_salto - array_idi.length);
+							if(last_salto>array_idi.length){
+								last_salto = (last_salto - array_idi.length);
+								if(last_salto>array_idi.length){
+									last_salto = (last_salto - array_idi.length);
+									if(last_salto>array_idi.length){
+										last_salto = (last_salto - array_idi.length);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		last_salto = last_salto-1;
+		new_array_sucesivos.push(array_idi[last_salto]);
+		array_idi.splice(last_salto,1);
+	}
+	console.log(new_array_sucesivos);
+
+	
+	//CIFRADO CESAR
+	var arr=[];
+	var arr2=[];
+	arr = frase.replace(/ /g, "").trim().split("");
+	//console.log(arr);	
+	for(var i=0; i<arr.length;i++){
+		for(var j=0;j<new_array_sucesivos.length;j++){
+			if(arr[i]==new_array_sucesivos[j]){
+				if((j+3)>new_array_sucesivos.length){
+					switch(new_array_sucesivos.length-j){
+						case 0:
+							arr2.push(new_array_sucesivos[2]);
+						break;
+						case 1:
+							arr2.push(new_array_sucesivos[1]);
+						break;
+						case 2:
+							arr2.push(new_array_sucesivos[0]);
+						break;
+					}
+				}else{
+					arr2.push(new_array_sucesivos[j+3]);
+				}
+			}
+		}
+	}
+
+	var retorno = [arr2,new_array_sucesivos];
+
+	//console.log(arr2);
+
+	
+
+	return retorno
+}
+
+
+function desencriptar(cripto, alfabeto){
+var new_array_word=[];
+	for(var i=0; i<cripto.length; i++){
+		for(var j = 0; j < alfabeto.length; j++){
+			if(cripto[i]==alfabeto[j]){
+				if(j < 3){
+					switch(j){
+						case 0:
+							new_array_word.push(alfabeto[alfabeto.length-3]);
+							break;
+						case 1:
+							new_array_word.push(alfabeto[alfabeto.length-2]);
+							break;
+						case 2:
+							new_array_word.push(alfabeto[alfabeto.length-1]);
+							break;
+					}
+				}else{
+					new_array_word.push(alfabeto[j-3]);
+				}
+			}
+		}
+	}
+
+	return new_array_word;
+
+}
+
+
+	$(function(){
+		$('#ejecutar').click(function(e){
+			e.preventDefault();
+			var frase = $('#cripto').val();
+			//console.log(frase);
+			var cripto = encriptar(frase);
+			$('.area-text').html(cripto[0]);
+
+			$('#corregir').click(function(e){
+				e.preventDefault();
+				var cripto2 = $('#descripto').val();
+				//console.log(frase);
+				//convert
+				var array_crip = [];
+				array_crip = cripto2.trim().replace(/ /g, "").split("")
+				var respuesta = desencriptar(array_crip,cripto[1]);
+				$('.area-text2').html(respuesta);
+			});	
+		});		
+	});
+</script>
+</body>
+</html>
