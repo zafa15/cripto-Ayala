@@ -8,67 +8,67 @@ function limpiar(){
 }
 
 
-function convertir_abc(alphabet,design) {
-    let instructions = design.split('/');
-    for(let i in instructions) {
-        console.log(instructions[i]);
-        switch(instructions[i].substr(0,2)) {
+function convertir_abc(abc_alph,cuerpo) {
+    var inst_cripto = cuerpo.split('-');
+    for(var i in inst_cripto) {
+        console.log(inst_cripto[i]);
+        switch(inst_cripto[i].substr(0,2)) {
             case 'su':
-                console.log(alphabet);
-                alphabet = saltos_sucesivos(alphabet,instructions[i].substr(2));
-                console.log(alphabet);
+                //console.log(alphabet);
+                abc_alph = saltos_sucesivos(abc_alph,inst_cripto[i].substr(2));
+                //console.log(alphabet);
                 break;
             case 'di':
-                console.log(alphabet);
-                alphabet = saltos_idi(alphabet,instructions[i].substr(2));
-                console.log(alphabet);
+                //console.log(alphabet);
+                abc_alph = saltos_idi(abc_alph,inst_cripto[i].substr(2));
+                //console.log(alphabet);
                 break;
             case 'tp':
-                console.log(alphabet);
-                alphabet = transposicion(alphabet,instructions[i].substr(2));
-                console.log(alphabet);
+                //console.log(alphabet);
+                abc_alph = transposicion(abc_alph,inst_cripto[i].substr(2));
+                //console.log(alphabet);
                 break;
             case 'tr':
-                console.log(alphabet);
-                alphabet = tramas(alphabet,instructions[i].substr(2));
-                console.log(alphabet);
+                //console.log(alphabet);
+                abc_alph = tramas(abc_alph,inst_cripto[i].substr(2));
+                //console.log(alphabet);
                 break;
             default:
-                console.log(instructions[i].substr(0,2),instructions[i].substr(2));
+                //console.log(instructions[i].substr(0,2),instructions[i].substr(2));
                 throw('Something went wrong here');
         }
     }
-    return alphabet;
+    return abc_alph;
 }
 
-function encriptar_frase(phrase,input,output) {
+function encriptar_frase(frase,input,output) {
     //console.log(input);
     //console.log(output);
-    let inputAlphabet = input.split('');
-    let outputAlphabet = output.split('');
-    let check = phrase.split('').map((item)=>{
+    var ingreso_abc = input.split('');
+    var salida_abc = output.split('');
+    var check = frase.split('').map((item)=>{
         if(item==' ') {
             return item;
         } else {
-            return outputAlphabet[inputAlphabet.indexOf(item)];
+            return salida_abc[ingreso_abc.indexOf(item)];
         }
     });
     return check.join('');
 }
 
-function saltos_sucesivos(alphabet,key,start=false) {
-    let output = '';
-    let counter = 0;
-    let input = alphabet.split('');
-    let keys = key.split('').map(Number); 
-    let starterInputSize = input.length;
-    let mutableInputSize = input.length;
-    let keySize = keys.length;
-    for(let i=0;i<starterInputSize;i++) {
+function saltos_sucesivos(alphabet,llave,start=false) {
+    var output = '';
+    var counter = 0;
+    var input = alphabet.split('');
+    var llave = llave.split('').map(Number); 
+    var starterInputSize = input.length;
+    var mutableInputSize = input.length;
+    var keySize = llave.length;
+    for(var i=0;i<starterInputSize;i++) {
         if(start) {
             start=false;
         } else {
-            counter=(counter+keys[i%keySize])%mutableInputSize;          
+            counter=(counter+llave[i%keySize])%mutableInputSize;          
         }
         output+=input[counter];  
         input.splice(counter,1);
@@ -79,31 +79,31 @@ function saltos_sucesivos(alphabet,key,start=false) {
 }
 
 function saltos_idi(alphabet,key,start=false) {
-    let output = '';
-    let currentLetter = '';
-    let counter = 0;
-    let input = alphabet.split('');
-    let starterInputSize = input.length;
-    let mutableInputSize = input.length;
-    let numbers=[],letters=[];
+    var output = '';
+    var currentvarter = '';
+    var counter = 0;
+    var input = alphabet.split('');
+    var starterInputSize = input.length;
+    var mutableInputSize = input.length;
+    var numbers=[],varters=[];
     key.split('').map((item)=>{
-        if(isNaN(item)) letters.push(item);
+        if(isNaN(item)) varters.push(item);
         else numbers.push(Number(item));
     });
-    let letterSize = letters.length;
-    let numSize = numbers.length;
-    //console.log(numbers,letters);
-    for(let i=0;i<starterInputSize;i++) {
-        let direction=0;
-        currentLetter = letters[i%letterSize];
+    var varterSize = varters.length;
+    var numSize = numbers.length;
+    //console.log(numbers,varters);
+    for(var i=0;i<starterInputSize;i++) {
+        var direction=0;
+        currentvarter = varters[i%varterSize];
         if(start) {
             start=false;
-        } else if(currentLetter==='I') {
+        } else if(currentvarter==='I') {
             direction=-1;
-        } else if(currentLetter==='D') {
+        } else if(currentvarter==='D') {
             direction=1;
         } else {
-            throw('Letter not expected');
+            throw('varter not expected');
         }
         counter=((counter+numbers[i%numSize]*direction)%mutableInputSize);
         if(counter<0) counter+=mutableInputSize;
@@ -117,10 +117,10 @@ function saltos_idi(alphabet,key,start=false) {
 }
 
 function transposicion(alphabet,key) {
-    let output='';
-    let keySize = key.length;
-    let alphabetParts = parseInt(alphabet.length/keySize);
-    for(let i=0;i<alphabetParts;i++) {
+    var output='';
+    var keySize = key.length;
+    var alphabetParts = parseInt(alphabet.length/keySize);
+    for(var i=0;i<alphabetParts;i++) {
         output+=ordenar_grupos(alphabet.substr(i*keySize,keySize),key);
     }
     if(output.length<alphabet.length) {
@@ -130,11 +130,11 @@ function transposicion(alphabet,key) {
 }
 
 function tramas(alphabet,key) {
-    let output='';
-    let keySize = key.length;
-    let alphabetParts = parseInt(alphabet.length/keySize);
-    let x = [];
-    for(let i=0;i<keySize;i++) {
+    var output='';
+    var keySize = key.length;
+    var alphabetParts = parseInt(alphabet.length/keySize);
+    var x = [];
+    for(var i=0;i<keySize;i++) {
         x.push(alphabet.substr(i*alphabetParts,alphabetParts));
     }
     output=orderArray(x,key);
@@ -145,13 +145,13 @@ function tramas(alphabet,key) {
 }
 
 function orderArray(array,key) {
-    let keys1 = key.split('');
-    let keys2 = key.split('');
-    let array2 = [];
+    var keys1 = key.split('');
+    var keys2 = key.split('');
+    var array2 = [];
     keys2.sort((a,b)=>{
         return a-b;
     });
-    for(let i in array) {
+    for(var i in array) {
         array2.push(array[keys1.indexOf(keys2[i])]);
     }
     console.log(array2.join(''));
@@ -159,81 +159,81 @@ function orderArray(array,key) {
 }
 
 function ordenar_grupos(group,key) {
-    let units = group.split('');
-    let units2 = group.split('');
-    let keys = key.split('');
-    let keys2 = key.split('');
+    var units = group.split('');
+    var units2 = group.split('');
+    var keys = key.split('');
+    var keys2 = key.split('');
     keys2.sort((a,b)=>{
         return a-b;
     });
     //console.log(keys,keys2);
-    for(let i in units) {
-        let j = keys2.indexOf(keys[i]);
+    for(var i in units) {
+        var j = keys2.indexOf(keys[i]);
         units2[j]=units[i];
     }
     //console.log(units,units2);
     return units2.join('');
 }
 
-function inversion(alphabet,letter) {
+function inversion(alphabet,varter) {
     console.log('on backlog');
 }
 
 
 function insert_sucesivos() {
-    let step = document.querySelector('#saltos_sucesivos').value;
-    let chain = document.querySelector('#cadena_filtros');
-    chain.innerText = chain.innerText + 'su' + step + '/';
+    var step = document.querySelector('#saltos_sucesivos').value;
+    var chain = document.querySelector('#cadena_filtros');
+    chain.innerText = chain.innerText + 'su' + step + '-';
 }
 
 function insert_idi() {
-    let step = document.querySelector('#saltos_idi').value;
-    let chain = document.querySelector('#cadena_filtros');
-    chain.innerText = chain.innerText+ 'di'  + step + '/';
+    var step = document.querySelector('#saltos_idi').value;
+    var chain = document.querySelector('#cadena_filtros');
+    chain.innerText = chain.innerText+ 'di'  + step + '-';
 }
 
 function insert_transpo() {
-    let step = document.querySelector('#clave_transpo').value;
-    let chain = document.querySelector('#cadena_filtros');
-    chain.innerText = chain.innerText+ 'tp'  + step + '/';
+    var step = document.querySelector('#clave_transpo').value;
+    var chain = document.querySelector('#cadena_filtros');
+    chain.innerText = chain.innerText+ 'tp'  + step + '-';
 }
 
 function insert_trama() {
-    let step = document.querySelector('#clave_trama').value;
-    let chain = document.querySelector('#cadena_filtros');
-    chain.innerText = chain.innerText+ 'tr'  + step + '/';
+    var step = document.querySelector('#clave_trama').value;
+    var chain = document.querySelector('#cadena_filtros');
+    chain.innerText = chain.innerText+ 'tr'  + step + '-';
     tramas('abcdefghijklmnopqrstuvwxyz',step);
 }
 
 function encriptar() {
-    let frase = document.querySelector('#frase').value.toLowerCase();
+    var frase = document.querySelector('#frase').value.toLowerCase();
 
-    let llano = document.querySelector('#llano').value; 
-    let filtro_llano = document.querySelector('#filtro_llano').value;
+    var llano = document.querySelector('#llano').value; 
+    var filtro_llano = document.querySelector('#filtro_llano').value;
 
-    let cripto = document.querySelector('#cripto').value;; 
-    let filtro_cripto = document.querySelector('#filtro_cripto').value;
+    var cripto = document.querySelector('#cripto').value;; 
+    var filtro_cripto = document.querySelector('#filtro_cripto').value;
 
-    let input = convertir_abc(llano,filtro_llano);
-    let output = convertir_abc(cripto,filtro_cripto);
-    let pre = encriptar_frase(frase,input,output);
-    let result = document.querySelector('#area1');
+    var input = convertir_abc(llano,filtro_llano);
+    var output = convertir_abc(cripto,filtro_cripto);
+    var pre = encriptar_frase(frase,input,output);
+    var result = document.querySelector('#area1');
     result.innerText = pre;
 }
 
 function desencriptar() {
-    let frase2 = document.querySelector('#frase2').value.toLowerCase();
+    var frase2 = document.querySelector('#frase2').value.toLowerCase();
 
-    let llano = document.querySelector('#llano').value; 
-    let filtro_llano = document.querySelector('#filtro_llano').value;
+    var llano = document.querySelector('#llano').value; 
+    var filtro_llano = document.querySelector('#filtro_llano').value;
 
-    let cripto = document.querySelector('#cripto').value; 
-    let filtro_cripto = document.querySelector('#filtro_cripto').value;
+    var cripto = document.querySelector('#cripto').value; 
+    var filtro_cripto = document.querySelector('#filtro_cripto').value;
 
-    let input = convertir_abc(llano,filtro_llano);
-    let output = convertir_abc(cripto,filtro_cripto);
-    let pre = encriptar_frase(frase2,output,input);
-    let result = document.querySelector('#area2');
+    var input = convertir_abc(llano,filtro_llano);
+    var output = convertir_abc(cripto,filtro_cripto);
+    var pre = encriptar_frase(frase2,output,input);
+    var result = document.querySelector('#area2');
     result.innerText = pre;
 }
 

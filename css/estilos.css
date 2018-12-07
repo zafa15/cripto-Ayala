@@ -85,6 +85,10 @@ body{
 			margin: 0 auto;
 		}
 
+		#saltos_idi{
+			text-transform: uppercase;
+		}
+
 		@media (max-width: 600px){
 			.content{
 				width: 90%;
