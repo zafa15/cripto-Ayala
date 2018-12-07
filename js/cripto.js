@@ -1,60 +1,36 @@
-'use strict'
 
-function encrypt() {
-    let phrase = document.querySelector('#frase').value.toLowerCase();
-
-    let plane = document.querySelector('#llano').value;; 
-    let planeDesign = document.querySelector('#filtro_llano').value;
-
-    let crypt = document.querySelector('#cripto').value;; 
-    let cryptDesign = document.querySelector('#filtro_cripto').value;
-
-    let input = transformAlphabet(plane,planeDesign);
-    let output = transformAlphabet(crypt,cryptDesign);
-    let pre = encryptPhrase(phrase,input,output);
-    let result = document.querySelector('.area-text');
-    result.innerText = pre;
+function limpiar(){
+    document.querySelector('#saltos_sucesivos').value="";
+    document.querySelector('#saltos_idi').value="";
+    document.querySelector('#clave_transpo').value="";
+    document.querySelector('#clave_trama').value="";
+    document.querySelector('#cadena_filtros').innerHTML="";
 }
 
-function decrypt() {
-    let phrase = document.querySelector('#frase').value.toLowerCase();
 
-    let plane = document.querySelector('#llano').value;; 
-    let planeDesign = document.querySelector('#filtro_llano').value;
-
-    let crypt = document.querySelector('#cripto').value;; 
-    let cryptDesign = document.querySelector('#filtro_cripto').value;
-
-    let input = transformAlphabet(plane,planeDesign);
-    let output = transformAlphabet(crypt,cryptDesign);
-    let pre = encryptPhrase(phrase,output,input);
-    let result = document.querySelector('.area-text');
-    result.innerText = pre;
-}
-
-function transformAlphabet(alphabet,design) {
+function convertir_abc(alphabet,design) {
     let instructions = design.split('/');
     for(let i in instructions) {
         console.log(instructions[i]);
         switch(instructions[i].substr(0,2)) {
             case 'su':
                 console.log(alphabet);
-                alphabet = succesiveJumps(alphabet,instructions[i].substr(2));
+                alphabet = saltos_sucesivos(alphabet,instructions[i].substr(2));
                 console.log(alphabet);
                 break;
             case 'di':
                 console.log(alphabet);
-                alphabet = directionJumps(alphabet,instructions[i].substr(2));
+                alphabet = saltos_idi(alphabet,instructions[i].substr(2));
                 console.log(alphabet);
                 break;
             case 'tp':
                 console.log(alphabet);
-                alphabet = trasposition(alphabet,instructions[i].substr(2));
+                alphabet = transposicion(alphabet,instructions[i].substr(2));
                 console.log(alphabet);
                 break;
             case 'tr':
                 console.log(alphabet);
-                alphabet = frames(alphabet,instructions[i].substr(2));
+                alphabet = tramas(alphabet,instructions[i].substr(2));
                 console.log(alphabet);
                 break;
             default:
@@ -65,9 +41,9 @@ function transformAlphabet(alphabet,design) {
     return alphabet;
 }
 
-function encryptPhrase(phrase,input,output) {
-    console.log(input);
-    console.log(output);
+function encriptar_frase(phrase,input,output) {
+    //console.log(input);
+    //console.log(output);
     let inputAlphabet = input.split('');
     let outputAlphabet = output.split('');
     let check = phrase.split('').map((item)=>{
@@ -80,7 +56,7 @@ function encryptPhrase(phrase,input,output) {
     return check.join('');
 }
 
-function succesiveJumps(alphabet,key,start=false) {
+function saltos_sucesivos(alphabet,key,start=false) {
     let output = '';
     let counter = 0;
     let input = alphabet.split('');
@@ -102,7 +78,7 @@ function succesiveJumps(alphabet,key,start=false) {
     return output;
 }
 
-function directionJumps(alphabet,key,start=false) {
+function saltos_idi(alphabet,key,start=false) {
     let output = '';
     let currentLetter = '';
     let counter = 0;
@@ -140,12 +116,12 @@ function directionJumps(alphabet,key,start=false) {
     return output;
 }
 
-function trasposition(alphabet,key) {
+function transposicion(alphabet,key) {
     let output='';
     let keySize = key.length;
     let alphabetParts = parseInt(alphabet.length/keySize);
     for(let i=0;i<alphabetParts;i++) {
-        output+=orderGroupOfNumbers(alphabet.substr(i*keySize,keySize),key);
+        output+=ordenar_grupos(alphabet.substr(i*keySize,keySize),key);
     }
     if(output.length<alphabet.length) {
         output+=alphabet.substr(output.length);
@@ -153,7 +129,7 @@ function trasposition(alphabet,key) {
     return output;
 }
 
-function frames(alphabet,key) {
+function tramas(alphabet,key) {
     let output='';
     let keySize = key.length;
     let alphabetParts = parseInt(alphabet.length/keySize);
@@ -171,17 +147,18 @@ function frames(alphabet,key) {
 function orderArray(array,key) {
     let keys1 = key.split('');
     let keys2 = key.split('');
-    let array2 = new Array();
+    let array2 = [];
     keys2.sort((a,b)=>{
         return a-b;
     });
     for(let i in array) {
         array2.push(array[keys1.indexOf(keys2[i])]);
     }
+    console.log(array2.join(''));
     return array2.join('');
 }
 
-function orderGroupOfNumbers(group,key) {
+function ordenar_grupos(group,key) {
     let units = group.split('');
     let units2 = group.split('');
     let keys = key.split('');
@@ -225,19 +202,39 @@ function insert_trama() {
     let step = document.querySelector('#clave_trama').value;
     let chain = document.querySelector('#cadena_filtros');
     chain.innerText = chain.innerText+ 'tr'  + step + '/';
-    frames('abcdefghijklmnopqrstuvwxyz',step);
+    tramas('abcdefghijklmnopqrstuvwxyz',step);
+}
+
+function encriptar() {
+    let frase = document.querySelector('#frase').value.toLowerCase();
+
+    let llano = document.querySelector('#llano').value; 
+    let filtro_llano = document.querySelector('#filtro_llano').value;
+
+    let cripto = document.querySelector('#cripto').value;; 
+    let filtro_cripto = document.querySelector('#filtro_cripto').value;
+
+    let input = convertir_abc(llano,filtro_llano);
+    let output = convertir_abc(cripto,filtro_cripto);
+    let pre = encriptar_frase(frase,input,output);
+    let result = document.querySelector('#area1');
+    result.innerText = pre;
+}
+
+function desencriptar() {
+    let frase2 = document.querySelector('#frase2').value.toLowerCase();
+
+    let llano = document.querySelector('#llano').value; 
+    let filtro_llano = document.querySelector('#filtro_llano').value;
+
+    let cripto = document.querySelector('#cripto').value; 
+    let filtro_cripto = document.querySelector('#filtro_cripto').value;
+
+    let input = convertir_abc(llano,filtro_llano);
+    let output = convertir_abc(cripto,filtro_cripto);
+    let pre = encriptar_frase(frase2,output,input);
+    let result = document.querySelector('#area2');
+    result.innerText = pre;
 }
 
 
-function limpiar(){
-    document.querySelector('#saltos_sucesivos').value="";
-    document.querySelector('#saltos_idi').value="";
-    document.querySelector('#clave_transpo').value="";
-    document.querySelector('#clave_trama').value="";
-    document.querySelector('#cadena_filtros').innerHTML="";
-}
-
-    /*let output = directionJumps(
-        document.querySelector('#alphabet').value.toLowerCase(),
-        document.querySelector('#jumps').value,
-        document.querySelector('#start').checked);*/

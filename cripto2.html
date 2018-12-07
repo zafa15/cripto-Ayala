@@ -109,14 +109,34 @@
 			<input type="text" name="frase" id="frase" class="campo-text">	
 			</div>
 			<div class="btn-cript">
-				<span id="ejecutar" class="botones" onclick="encrypt()">Encriptar</span>
+				<span id="ejecutar" class="botones" onclick="encriptar()">Encriptar</span>
 			</div>
 			</div>
+
 		</form>
 	</div>
 	<div class="resultado">
 		<span>Cifrado</span><br>
-		<textarea class="area-text">
+		<textarea class="area-text" id="area1">
+			
+		</textarea>
+	</div>
+	<div class="formulario">
+		<div class="campos">
+			<div class="label">
+				<label>Ingrese Mensaje Cifrado</label>	
+			</div>
+			<div class="text-input">
+			<input type="text" name="frase2" id="frase2" class="campo-text">	
+			</div>
+			<div class="btn-cript">
+				<span id="ejecutar-des" class="botones" onclick="desencriptar()">Desencriptar</span>
+			</div>
+			</div>
+	</div>
+	<div class="resultado">
+		<span>Cifrado</span><br>
+		<textarea class="area-text" id="area2">
 			
 		</textarea>
 	</div>
