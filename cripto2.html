@@ -2,111 +2,8 @@
 <html>
 <head>
 	<title></title>
-	<style type="text/css">
-		body{
-			margin: 0px;
-			padding: 0px;
-			background-color: #ffffff;
-		}
-		.content{
-
-			border: 1px solid #e2e8ee;
-    		box-shadow: 1px 1px 1px 1px #e2e8ee;
-			width: 970px;
-			margin: 0 auto;
-			margin-top: 20%;
-			box-sizing: border-box;
-			padding: 20px;
-		}
-
-		.preguntas{
-			box-sizing: border-box;
-			vertical-align: top;
-		}
-
-		.content2{
-			display: inline-block;
-			vertical-align: top;
-			box-sizing: border-box;
-		}
-
-
-		.content2 img{
-			height: 295px;
-		}
-
-		.content div{
-			text-align: center;
-			margin-bottom: 20px;
-			font-size: 20px;
-			color: #606060;
-			font-family: arial;
-		}
-		.formulario .campo-text{
-			border: 1px solid #e2e8ee;
-    		box-shadow: 1px 1px 1px 1px #e2e8ee;
-    		border-radius: 10px;
-    		text-transform: lowercase;
-    		box-sizing: border-box;
-    		padding: 10px;
-    		width: 80%;
-		}
-
-		.resultado .area-text{
-			border: 1px solid #e2e8ee;
-		    box-shadow: 1px 1px 1px 1px #e2e8ee;
-		    border-radius: 10px;
-		    box-sizing: border-box;
-		    width: 80%;
-		    height: 100px;
-		    text-align: left;
-		    padding: 15px;
-		}
-
-		.btn-cript{
-			width: 100%;
-			text-align: left;
-		}
-
-		.botones{
-			box-sizing: border-box;
-			background-color: #ec1b2a;
-			padding: 10px;
-			color: #ffffff;
-			font-weight: 700;
-			border: 1px solid #ec1b2a;
-			border-radius: 10px;  
-			cursor: pointer;
-		}
-
-		.question {
-			display: inline-block;
-			vertical-align: top;
-			box-sizing: border-box;
-		}
-
-		.campos{
-			max-width: 400px;
-			margin: 0 auto;
-		}
-
-		@media (max-width: 600px){
-			.content{
-				width: 90%;
-			}
-
-			.preguntas{
-				width: 100%;
-			}
-			.formulario #cripto{
-				width: 100%;
-			}
-
-			.resultado .area-text{
-				width: 100%;
-			}
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+	<script type="text/javascript" src="js/cripto.js"></script>
 </head>
 <body>
 	<div class="content">
@@ -124,7 +21,7 @@
 					<input type="text" name="saltos_sucesivos" id="saltos_sucesivos" class="campo-text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 				</div>
 				<div class="btn-cript">
-					<input type="submit" value="Seleccionar" id="btn-saltos_sucesivos" class="botones"/>
+					<span id="btn-saltos_sucesivos" class="botones" onclick="insert_sucesivos()">Seleccionar</span>
 				</div>
 			</div>
 
@@ -136,7 +33,7 @@
 					<input type="text" name="saltos_idi" id="saltos_idi" class="campo-text">
 				</div>
 				<div class="btn-cript">
-					<input type="submit" value="Seleccionar" id="btn-saltos_idi" class="botones"/>
+					<span id="btn-saltos_idi" class="botones" onclick="insert_idi()">Seleccionar</span>
 				</div>
 			</div>
 			
@@ -148,7 +45,7 @@
 					<input type="text" name="clave_trama" id="clave_trama" class="campo-text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 				</div>
 				<div class="btn-cript">
-					<input type="submit" value="Seleccionar" id="btn-clave_trama" class="botones"/>
+					<span id="btn-clave_trama" class="botones" onclick="insert_trama()" >Seleccionar</span>
 				</div>
 			</div>
 
@@ -160,22 +57,59 @@
 					<input type="text" name="clave_transpo" id="clave_transpo" class="campo-text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 				</div>
 				<div class="btn-cript">
-					<input type="submit" value="Seleccionar" id="btn-clave_transpo" class="botones"/>
+					<span id="btn-clave_transpo" class="botones" onclick="insert_transpo()">Seleccionar</span>
 				</div>
 			</div>
 
 			</div>
 
+			<div class="Cadena">
+				<div class="label">
+					<label>Cadena de Filtros</label>	
+				</div>
+				<div class="text-input">
+					<p id="cadena_filtros"></p>
+				</div>
+
+				<div class="btn-cript">
+					<span id="limpiar" class="botones" onclick="limpiar()">Limpiar</span>
+				</div>
+			</div>
+
+
+			<div class="abecedarios">
+				<div class="question">
+					<div class="label">
+					<label>Cripto</label>	
+				</div>
+				<div class="text-input">
+					<input type="text" id="cripto" name="cripto" size="26" value="abcdefghijklmnopqrstuvwxyz" disabled class="campo-text"><br>
+					<br>
+					<input type="text" id="filtro_cripto" name="filtro_cripto" class="campo-text">
+				</div>
+				</div>
+
+				<div class="question">
+					<div class="label">
+					<label>Abecedario Llano</label>	
+				</div>
+				<div class="text-input">
+					<input type="text" id="llano" name="llano" size="26" value="abcdefghijklmnopqrstuvwxyz" disabled class="campo-text"><br>
+					<br>
+					<input type="text" id="filtro_llano" name="filtro_llano" class="campo-text">
+				</div>	
+				</div>
+			</div>
 
 			<div class="campos">
 			<div class="label">
 				<label>Ingrese Frase</label>	
 			</div>
 			<div class="text-input">
-			<input type="text" name="cripto" id="cripto" class="campo-text">	
+			<input type="text" name="frase" id="frase" class="campo-text">	
 			</div>
 			<div class="btn-cript">
-				<input type="submit" value="Encriptar" id="ejecutar" class="botones" />
+				<span id="ejecutar" class="botones" onclick="encrypt()">Encriptar</span>
 			</div>
 			</div>
 		</form>
@@ -188,216 +122,5 @@
 	</div>
 </div>
 </div>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
-	function encriptar(frase){
-
-	// CREACION DEL ABC, REVERSO, EMPIEZE EN L
-		
-		var abc = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z'];
-		//console.log(abc);
-		var reverse = abc.reverse();
-		//console.log(reverse);
-
-		var lista1 = [];
-		var lista2 = [];
-		for(var i = 0; i<reverse.length; i++){
-
-			lista2.push(reverse[i]);
-
-			if(reverse[i]=='m'){
-				for(var a = i+1; a< reverse.length; a++){	
-					lista1.push(reverse[a]);
-				}
-				i = reverse.length-1;
-			}
-		}
-
-		var colocado = $.merge( $.merge( [], lista1 ), lista2 );
-		var colocado2 = colocado;
-		//console.log(colocado);
-		var array_idi=[];
-		var tres = 0;
-		var num1 = 3;
-
-// 357 IDI
-
-		do {
-
-			var uno = tres-3;
-					if(uno<0){
-						uno = colocado.length - Math.abs(uno);
-						//console.log(uno);
-						if(uno<0){
-							uno = colocado.length - Math.abs(uno);
-						}
-					}
-
-					array_idi.push(colocado[uno]);
-					colocado.splice(uno,1);
-					//colocado[uno]='null';
-
-				var dos = (uno)+5;
-				if(dos>colocado.length){
-					dos = (dos - colocado.length);
-					if(dos>colocado.length){
-						dos = (dos - colocado.length);
-					}
-				}
-
-					dos = dos-1;
-
-				array_idi.push(colocado[dos]);
-				colocado.splice(dos,1);
-				//colocado[dos]='null';
-
-
-				 
-
-				 tres = dos-7;
-				 //console.log(dos);
-				if(tres<0){
-					tres = colocado.length - Math.abs(tres);
-					if(tres<0){
-						tres = colocado.length - Math.abs(tres);
-						if(tres<0){
-							tres = colocado.length -  Math.abs(tres);
-							if(tres<0){
-								tres = colocado.length -  Math.abs(tres);
-								if(tres<0){
-									tres = colocado.length -  Math.abs(tres);
-									if(tres<0){
-										tres = colocado.length -  Math.abs(tres);
-									}
-								}		
-							}
-						}
-					}
-				}
-
-				array_idi.push(colocado[tres]);
-				colocado.splice(tres,1);
-				 //tres = tres +1;
-				
-				num1=num1+3;
-
-		} while(num1<=27)
-		//console.log(array_idi);
-		//console.log(colocado);
-
-
-//268 SALTOS SUCESIVOS
-
-	var new_array_sucesivos=[];
-	var last_salto=0;
-	for(var salto = 3; salto<=27; salto=salto+3){
-
-		var salto1 = last_salto + 2;
-		if(salto1>array_idi.length){
-			salto1 = (salto1 - array_idi.length);
-			if(salto1>array_idi.length){
-				salto1 = (salto1 - array_idi.length);
-			}
-		}
-
-		if(last_salto>0){
-			salto1 = salto1-1;
-		}
-
-		//salto1 = salto1-1;
-		new_array_sucesivos.push(array_idi[salto1]);
-		array_idi.splice(salto1,1);
-
-		var salto2 = salto1 + 6;
-		if(salto2>array_idi.length){
-			salto2 = (salto2 - array_idi.length);
-			if(salto2>array_idi.length){
-				salto2 = (salto2 - array_idi.length);
-				if (salto2>array_idi.length) {
-					salto2 = (salto2 - array_idi.length);
-				}
-			}
-		}
-
-		salto2 = salto2-1;
-		new_array_sucesivos.push(array_idi[salto2]);
-		array_idi.splice(salto2,1);
-
-		var last_salto = salto2 + 8;
-		if(last_salto>array_idi.length){
-			last_salto = (last_salto - array_idi.length);
-			if(last_salto>array_idi.length){
-				last_salto = (last_salto - array_idi.length);
-				if(last_salto>array_idi.length){
-					last_salto = (last_salto - array_idi.length);
-					if(last_salto>array_idi.length){
-						last_salto = (last_salto - array_idi.length);
-						if(last_salto>array_idi.length){
-							last_salto = (last_salto - array_idi.length);
-							if(last_salto>array_idi.length){
-								last_salto = (last_salto - array_idi.length);
-								if(last_salto>array_idi.length){
-									last_salto = (last_salto - array_idi.length);
-									if(last_salto>array_idi.length){
-										last_salto = (last_salto - array_idi.length);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		last_salto = last_salto-1;
-		new_array_sucesivos.push(array_idi[last_salto]);
-		array_idi.splice(last_salto,1);
-	}
-	//console.log(new_array_sucesivos);
-
-	
-	//CIFRADO CESAR
-	var arr=[];
-	var arr2=[];
-	arr = frase.trim().replace(/ /g, "").split("");
-	//console.log(arr);	
-	for(var i=0; i<arr.length;i++){
-		for(var j=0;j<new_array_sucesivos.length;j++){
-			if(arr[i]==new_array_sucesivos[j]){
-				if((j+3)>new_array_sucesivos.length){
-					switch(new_array_sucesivos.length-j){
-						case 0:
-							arr2.push(new_array_sucesivos[2]);
-						break;
-						case 1:
-							arr2.push(new_array_sucesivos[1]);
-						break;
-						case 2:
-							arr2.push(new_array_sucesivos[0]);
-						break;
-					}
-				}else{
-					arr2.push(new_array_sucesivos[j+3]);
-				}
-			}
-		}
-	}
-
-	console.log(arr2);
-
-	
-
-	return arr2
-}
-
-	$(function(){
-		$('#ejecutar').click(function(e){
-			e.preventDefault();
-			var frase = $('#cripto').val();
-			//console.log(frase);
-			var cripto = encriptar(frase);
-			$('.area-text').html(cripto);
-		});		
-	});
-</script>
 </body>
 </html>
