@@ -37,22 +37,22 @@ function transformAlphabet(alphabet,design) {
     for(let i in instructions) {
         console.log(instructions[i]);
         switch(instructions[i].substr(0,2)) {
-            case 'sucesivos':
+            case 'su':
                 console.log(alphabet);
                 alphabet = succesiveJumps(alphabet,instructions[i].substr(2));
                 console.log(alphabet);
                 break;
-            case 'idi':
+            case 'di':
                 console.log(alphabet);
                 alphabet = directionJumps(alphabet,instructions[i].substr(2));
                 console.log(alphabet);
                 break;
-            case 'transposicion':
+            case 'tp':
                 console.log(alphabet);
                 alphabet = trasposition(alphabet,instructions[i].substr(2));
                 console.log(alphabet);
                 break;
-            case 'trama':
+            case 'tr':
                 console.log(alphabet);
                 alphabet = frames(alphabet,instructions[i].substr(2));
                 console.log(alphabet);
@@ -206,35 +206,35 @@ function inversion(alphabet,letter) {
 function insert_sucesivos() {
     let step = document.querySelector('#saltos_sucesivos').value;
     let chain = document.querySelector('#cadena_filtros');
-    chain.innerText = chain.innerText + 'sucesivos' + step + '/';
+    chain.innerText = chain.innerText + 'su' + step + '/';
 }
 
 function insert_idi() {
     let step = document.querySelector('#saltos_idi').value;
     let chain = document.querySelector('#cadena_filtros');
-    chain.innerText = chain.innerText+ 'idi'  + step + '/';
+    chain.innerText = chain.innerText+ 'di'  + step + '/';
 }
 
 function insert_transpo() {
     let step = document.querySelector('#clave_transpo').value;
     let chain = document.querySelector('#cadena_filtros');
-    chain.innerText = chain.innerText+ 'transpo'  + step + '/';
+    chain.innerText = chain.innerText+ 'tp'  + step + '/';
 }
 
 function insert_trama() {
     let step = document.querySelector('#clave_trama').value;
     let chain = document.querySelector('#cadena_filtros');
-    chain.innerText = chain.innerText+ 'trama'  + step + '/';
+    chain.innerText = chain.innerText+ 'tr'  + step + '/';
     frames('abcdefghijklmnopqrstuvwxyz',step);
 }
 
 
-/*function limpiar(){
-    document.getElementById('#saltos_sucesivos').reset();
-    document.getElementById('#saltos_idi').reset();
-    document.getElementById('#clave_transpo').reset();
-    document.getElementById('#clave_trama').reset();
-    document.getElementById('#cadena_filtros').innerHTML="";
+function limpiar(){
+    document.querySelector('#saltos_sucesivos').value="";
+    document.querySelector('#saltos_idi').value="";
+    document.querySelector('#clave_transpo').value="";
+    document.querySelector('#clave_trama').value="";
+    document.querySelector('#cadena_filtros').innerHTML="";
 }
 
     /*let output = directionJumps(
