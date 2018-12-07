@@ -20,8 +20,6 @@
 		}
 
 		.preguntas{
-			width: 450px;
-			display: inline-block;
 			box-sizing: border-box;
 			vertical-align: top;
 		}
@@ -38,51 +36,31 @@
 		}
 
 		.content div{
+			text-align: center;
 			margin-bottom: 20px;
 			font-size: 20px;
 			color: #606060;
 			font-family: arial;
 		}
-		.formulario #cripto{
+		.formulario .campo-text{
 			border: 1px solid #e2e8ee;
     		box-shadow: 1px 1px 1px 1px #e2e8ee;
     		border-radius: 10px;
+    		text-transform: lowercase;
     		box-sizing: border-box;
     		padding: 10px;
     		width: 80%;
-    		text-transform: lowercase;
-		}
-
-		.formulario #descripto{
-			border: 1px solid #e2e8ee;
-    		box-shadow: 1px 1px 1px 1px #e2e8ee;
-    		border-radius: 10px;
-    		box-sizing: border-box;
-    		padding: 10px;
-    		width: 80%;
-    		text-transform: lowercase;
 		}
 
 		.resultado .area-text{
 			border: 1px solid #e2e8ee;
-    		box-shadow: 1px 1px 1px 1px #e2e8ee;
-    		border-radius: 10px;
-    		width: 80%;
-    		height: 100px;
-    		text-align: left;
-    		box-sizing: border-box;
-    		padding: 10px;
-		}
-
-		.resultado .area-text2{
-			border: 1px solid #e2e8ee;
-    		box-shadow: 1px 1px 1px 1px #e2e8ee;
-    		border-radius: 10px;
-    		width: 80%;
-    		height: 100px;
-    		text-align: left;
-    		box-sizing: border-box;
-    		padding: 10px;
+		    box-shadow: 1px 1px 1px 1px #e2e8ee;
+		    border-radius: 10px;
+		    box-sizing: border-box;
+		    width: 80%;
+		    height: 100px;
+		    text-align: left;
+		    padding: 15px;
 		}
 
 		.btn-cript{
@@ -90,7 +68,7 @@
 			text-align: left;
 		}
 
-		#ejecutar{
+		.botones{
 			box-sizing: border-box;
 			background-color: #ec1b2a;
 			padding: 10px;
@@ -101,15 +79,15 @@
 			cursor: pointer;
 		}
 
-		#corregir{
+		.question {
+			display: inline-block;
+			vertical-align: top;
 			box-sizing: border-box;
-			background-color: #ec1b2a;
-			padding: 10px;
-			color: #ffffff;
-			font-weight: 700;
-			border: 1px solid #ec1b2a;
-			border-radius: 10px;  
-			cursor: pointer;
+		}
+
+		.campos{
+			max-width: 400px;
+			margin: 0 auto;
 		}
 
 		@media (max-width: 600px){
@@ -135,47 +113,79 @@
 	<div class="preguntas">
 	<div class="formulario">
 		<form>
+			<div class="filtros">
+				
+			
+			<div class="question">
+				<div class="label">
+					<label>Saltos Sucesivos</label>
+				</div>
+				<div class="text-input">
+					<input type="text" name="saltos_sucesivos" id="saltos_sucesivos" class="campo-text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+				</div>
+				<div class="btn-cript">
+					<input type="submit" value="Seleccionar" id="btn-saltos_sucesivos" class="botones"/>
+				</div>
+			</div>
+
+			<div class="question">
+				<div class="label">
+					<label>Saltos IDI</label>
+				</div>
+				<div class="text-input">
+					<input type="text" name="saltos_idi" id="saltos_idi" class="campo-text">
+				</div>
+				<div class="btn-cript">
+					<input type="submit" value="Seleccionar" id="btn-saltos_idi" class="botones"/>
+				</div>
+			</div>
+			
+			<div class="question">
+				<div class="label">
+					<label>Clave de Trama</label>
+				</div>
+				<div class="text-input">
+					<input type="text" name="clave_trama" id="clave_trama" class="campo-text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+				</div>
+				<div class="btn-cript">
+					<input type="submit" value="Seleccionar" id="btn-clave_trama" class="botones"/>
+				</div>
+			</div>
+
+			<div class="question">
+				<div class="label">
+					<label>Clave de Transposición</label>
+				</div>
+				<div class="text-input">
+					<input type="text" name="clave_transpo" id="clave_transpo" class="campo-text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+				</div>
+				<div class="btn-cript">
+					<input type="submit" value="Seleccionar" id="btn-clave_transpo" class="botones"/>
+				</div>
+			</div>
+
+			</div>
+
+
+			<div class="campos">
 			<div class="label">
 				<label>Ingrese Frase</label>	
 			</div>
 			<div class="text-input">
-			<input type="text" name="cripto" id="cripto">	
+			<input type="text" name="cripto" id="cripto" class="campo-text">	
 			</div>
 			<div class="btn-cript">
-				<input type="submit" value="Encriptar" id="ejecutar" />
+				<input type="submit" value="Encriptar" id="ejecutar" class="botones" />
+			</div>
 			</div>
 		</form>
 	</div>
 	<div class="resultado">
 		<span>Cifrado</span><br>
-		<textarea class="area-text" disabled="disabled">
+		<textarea class="area-text">
 			
 		</textarea>
 	</div>
-	<div class="formulario">
-		<form>
-			<div class="label">
-				<label>Ingrese cripto</label>	
-			</div>
-			<div class="text-input">
-			<input type="text" name="descripto" id="descripto">	
-			</div>
-			<div class="btn-cript">
-				<input type="submit" value="Desencriptar" id="corregir" />
-			</div>
-		</form>
-	</div>
-
-	<div class="resultado">
-		<span>Frase</span><br>
-		<textarea class="area-text2" disabled="disabled">
-			
-		</textarea>
-	</div>
-</div>
-
-<div class="content2">
-	<img src="img/crip2.png">
 </div>
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
